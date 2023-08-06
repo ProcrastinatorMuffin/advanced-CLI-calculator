@@ -1,9 +1,12 @@
+// Include necessary libraries
 #include<stdio.h>
 #include<string.h>
 #include<math.h>
 
+// Function to display a list of commands and their explanations
 void showHelp() {
     printf("\nAdvanced Calculator Commands:\n");
+    // List of commands with descriptions
     printf("add [num1] [num2]         : Add two numbers\n");
     printf("subtract [num1] [num2]    : Subtract second number from first\n");
     printf("multiply [num1] [num2]    : Multiply two numbers\n");
@@ -18,19 +21,23 @@ void showHelp() {
 }
 
 int main() {
+    // Variables to store the command and numbers for calculations
     char command[50];
     double num1, num2, result;
 
+    // Initial message to the user
     printf("Type 'help' for a list of commands.\n");
 
+    // Infinite loop to continuously prompt user for commands
     while (1) {
-        printf("> ");
-        scanf("%s", command);
+        printf("> ");  // Command prompt
+        scanf("%s", command);  // Read the command
 
+        // Check the entered command and perform the corresponding operation
         if (strcmp(command, "exit") == 0) {
-            break;
+            break;  // Exit the program
         } else if (strcmp(command, "help") == 0) {
-            showHelp();
+            showHelp();  // Display the list of commands
             continue;
         } else if (strcmp(command, "add") == 0) {
             scanf("%lf %lf", &num1, &num2);
@@ -73,12 +80,14 @@ int main() {
             result = tan(num1);
         } else {
             printf("Invalid command. Type 'help' for a list of commands.\n");
-            continue;
+            continue;  // Go back to the start of the loop and prompt the user again
         }
 
+        // Display the result of the calculation
         printf("Result: %lf\n", result);
     }
 
+    // Message displayed when the user exits the program
     printf("Goodbye!\n");
     return 0;
 }
