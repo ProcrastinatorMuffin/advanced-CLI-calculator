@@ -9,6 +9,11 @@ void displayMenu() {
     printf("5. Exit\n");
 }
 
+void clearBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 int main() {
     int choice;
     double num1, num2, result;
@@ -17,7 +22,11 @@ int main() {
         displayMenu();
 
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) != 1) {
+            printf("Invalid input!\n");
+            clearBuffer();
+            continue;
+        }
 
         if(choice == 5) {
             printf("Exiting...\n");
@@ -25,7 +34,11 @@ int main() {
         }
 
         printf("Enter two numbers: ");
-        scanf("%lf %lf", &num1, &num2);
+        if (scanf("%lf %lf", &num1, &num2) != 2) {
+            printf("Invalid input!\n");
+            clearBuffer();
+            continue;
+        }
 
         switch(choice) {
             case 1:
@@ -54,3 +67,4 @@ int main() {
 
     return 0;
 }
+
