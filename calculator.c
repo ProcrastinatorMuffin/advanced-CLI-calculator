@@ -1,108 +1,85 @@
 #include<stdio.h>
-#include<math.h>  // Include the math library
+#include<string.h>
+#include<math.h>
 
-void displayMenu() {
-    printf("Advanced Calculator\n");
-    printf("1. Addition\n");
-    printf("2. Subtraction\n");
-    printf("3. Multiplication\n");
-    printf("4. Division\n");
-    printf("5. Exponentiation\n");
-    printf("6. Square Root\n");
-    printf("7. Sine\n");
-    printf("8. Cosine\n");
-    printf("9. Tangent\n");
-    printf("10. Exit\n");
-}
-
-void clearBuffer() {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+void showHelp() {
+    printf("\nAdvanced Calculator Commands:\n");
+    printf("add [num1] [num2]         : Add two numbers\n");
+    printf("subtract [num1] [num2]    : Subtract second number from first\n");
+    printf("multiply [num1] [num2]    : Multiply two numbers\n");
+    printf("divide [num1] [num2]      : Divide first number by second\n");
+    printf("power [num] [exponent]    : Raise number to the power of exponent\n");
+    printf("sqrt [num]                : Calculate the square root of a number\n");
+    printf("sin [angle]               : Calculate the sine of an angle (in radians)\n");
+    printf("cos [angle]               : Calculate the cosine of an angle (in radians)\n");
+    printf("tan [angle]               : Calculate the tangent of an angle (in radians)\n");
+    printf("help                      : Show this help message\n");
+    printf("exit                      : Exit the calculator\n\n");
 }
 
 int main() {
-    int choice;
+    char command[50];
     double num1, num2, result;
 
-    while(1) {
-        displayMenu();
+    printf("Type 'help' for a list of commands.\n");
 
-        printf("Enter your choice: ");
-        if (scanf("%d", &choice) != 1) {
-            printf("Invalid input!\n");
-            clearBuffer();
-            continue;
-        }
+    while (1) {
+        printf("> ");
+        scanf("%s", command);
 
-        if(choice == 10) {
-            printf("Exiting...\n");
+        if (strcmp(command, "exit") == 0) {
             break;
-        }
-
-        if (choice >= 1 && choice <= 4) { // For operations that require two inputs
-            printf("Enter two numbers: ");
-            if (scanf("%lf %lf", &num1, &num2) != 2) {
-                printf("Invalid input!\n");
-                clearBuffer();
+        } else if (strcmp(command, "help") == 0) {
+            showHelp();
+            continue;
+        } else if (strcmp(command, "add") == 0) {
+            scanf("%lf %lf", &num1, &num2);
+            result = num1 + num2;
+        } else if (strcmp(command, "subtract") == 0) {
+            scanf("%lf %lf", &num1, &num2);
+            result = num1 - num2;
+        } else if (strcmp(command, "multiply") == 0) {
+            scanf("%lf %lf", &num1, &num2);
+            result = num1 * num2;
+        } else if (strcmp(command, "divide") == 0) {
+            scanf("%lf %lf", &num1, &num2);
+            if (num2 == 0) {
+                printf("Error: Division by zero.\n");
                 continue;
             }
-        } else {  // For operations that require one input
-            printf("Enter a number: ");
-            if (scanf("%lf", &num1) != 1) {
-                printf("Invalid input!\n");
-                clearBuffer();
+            result = num1 / num2;
+        } else if (strcmp(command, "power") == 0) {
+            scanf("%lf %lf", &num1, &num2);
+            result = pow(num1, num2);
+        } else if (strcmp(command, "sqrt") == 0) {
+            scanf("%lf", &num1);
+            if (num1 < 0) {
+                printf("Error: Negative number for square root.\n");
                 continue;
             }
-        }
-
-        switch(choice) {
-            case 1:
-                result = num1 + num2;
-                break;
-            case 2:
-                result = num1 - num2;
-                break;
-            case 3:
-                result = num1 * num2;
-                break;
-            case 4:
-                if(num2 == 0) {
-                    printf("Error: Division by zero.\n");
-                    continue;
-                }
-                result = num1 / num2;
-                break;
-            case 5:
-                result = pow(num1, num2);
-                break;
-            case 6:
-                if (num1 < 0) {
-                    printf("Error: Negative number for square root.\n");
-                    continue;
-                }
-                result = sqrt(num1);
-                break;
-            case 7:
-                result = sin(num1);
-                break;
-            case 8:
-                result = cos(num1);
-                break;
-            case 9:
-                if (cos(num1) == 0) {
-                    printf("Error: Tangent undefined for this value.\n");
-                    continue;
-                }
-                result = tan(num1);
-                break;
-            default:
-                printf("Invalid choice!\n");
+            result = sqrt(num1);
+        } else if (strcmp(command, "sin") == 0) {
+            scanf("%lf", &num1);
+            result = sin(num1);
+        } else if (strcmp(command, "cos") == 0) {
+            scanf("%lf", &num1);
+            result = cos(num1);
+        } else if (strcmp(command, "tan") == 0) {
+            scanf("%lf", &num1);
+            if (cos(num1) == 0) {
+                printf("Error: Tangent undefined for this value.\n");
                 continue;
+            }
+            result = tan(num1);
+        } else {
+            printf("Invalid command. Type 'help' for a list of commands.\n");
+            continue;
         }
 
         printf("Result: %lf\n", result);
     }
 
+    printf("Goodbye!\n");
     return 0;
 }
 
